@@ -1,5 +1,5 @@
 {
-    "name": "rlacerda83/lumen-elocache",
+    "name": "rlacerda83/lumem-elocache",
     "description": "Cache Eloquent querys for lumem",
     "keywords": ["cache", "eloquent", "lumen", "memcached", "laravel"],
     "homepage": "http://github.com/rlacerda83/lumem-elocache",
