@@ -2,35 +2,33 @@
 
 namespace Elocache\Cache;
 
-use Illuminate\Support\Facades\Log;
 use Cache;
+use Illuminate\Support\Facades\Log;
 
 class EloquentCache
 {
     /**
-     * Cache duration in minutes; 0 is forever
+     * Cache duration in minutes; 0 is forever.
      *
      * @var int
      */
     protected $cacheForMinutes = 0;
 
     /**
-     * Enable caching
+     * Enable caching.
      *
-     * @var boolean
+     * @var bool
      */
     protected $enableCaching = true;
 
     /**
-     * Enable logging
+     * Enable logging.
      *
-     * @var boolean
+     * @var bool
      */
     protected $enableLogging = true;
 
-
     protected $model;
-
 
     public function setModel($model)
     {
@@ -46,7 +44,8 @@ class EloquentCache
      * @param $key
      * @param $query
      * @param string $verb
-     * @param int $itemsPage
+     * @param int    $itemsPage
+     *
      * @return mixed
      */
     public function cacheQueryBuilder($key, $query, $verb = 'get', $itemsPage = 30)
@@ -57,24 +56,28 @@ class EloquentCache
         $referenceClass = $this;
         if ($this->enableCaching) {
             if ($this->cacheForMinutes > 0) {
-                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use($query, $verb, $key, $referenceClass, $itemsPage) {
+                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($query, $verb, $key, $referenceClass,$itemsPage) {
                     $referenceClass->log($key);
                     if ($verb == 'paginate') {
                         $paginator = $query->paginate($itemsPage);
                         $paginator->appends(app('request')->except('page'));
+
                         return $paginator;
                     }
+
                     return $query->$verb();
                 });
             }
 
-            return Cache::tags($tag)->rememberForever($key, function () use($query, $verb, $key, $referenceClass, $itemsPage) {
+            return Cache::tags($tag)->rememberForever($key, function () use ($query, $verb, $key, $referenceClass,$itemsPage) {
                 $referenceClass->log($key);
                 if ($verb == 'paginate') {
                     $paginator = $query->paginate($itemsPage);
                     $paginator->appends(app('request')->except('page'));
+
                     return $paginator;
                 }
+
                 return $query->$verb();
             });
         }
@@ -85,6 +88,7 @@ class EloquentCache
     /**
      * @param $key
      * @param $data
+     *
      * @return mixed
      */
     public function cacheGenericData($key, $data)
@@ -95,14 +99,16 @@ class EloquentCache
         $referenceClass = $this;
         if ($this->enableCaching) {
             if ($this->cacheForMinutes > 0) {
-                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use($data, $key, $referenceClass) {
+                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($data, $key,$referenceClass) {
                     $referenceClass->log($key);
+
                     return $data;
                 });
             }
 
-            return Cache::tags($tag)->rememberForever($key, function () use($data, $key, $referenceClass) {
+            return Cache::tags($tag)->rememberForever($key, function () use ($data, $key,$referenceClass) {
                 $referenceClass->log($key);
+
                 return $data;
             });
         }
@@ -121,7 +127,7 @@ class EloquentCache
     }
 
     /**
-     * Flush the cache by tags
+     * Flush the cache by tags.
      *
      * @return void
      */
