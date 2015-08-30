@@ -15,6 +15,7 @@ The cache service uses tags, so this package will only work with **memcached** a
 ## Current Features  
 - Enable\disable filter by repository
 - Renews the cache automatically
+- Log refreshed caches
 
 ## Upcoming Features
 - Cache available to other drivers

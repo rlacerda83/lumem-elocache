@@ -39,19 +39,7 @@ abstract class AbstractRepository extends EloquentCache
     public function all($columns = ['*'])
     {
         $query = $this->queryBuilder->select($columns);
-
         return $this->cacheQueryBuilder('all', $query);
-    }
-
-    /**
-     * @param int   $perPage
-     * @param array $columns
-     *
-     * @return mixed
-     */
-    public function paginate($perPage = 1, $columns = ['*'])
-    {
-        return $this->queryBuilder->paginate($perPage, $columns);
     }
 
     /**
@@ -106,9 +94,10 @@ abstract class AbstractRepository extends EloquentCache
      *
      * @return mixed
      */
-    public function findBy($attribute, $value, $columns = ['*'])
+    public function findBy($attribute, $value, $columns = array('*'))
     {
-        return $this->queryBuilder->where($attribute, '=', $value)->first($columns);
+        $query = $this->queryBuilder->select($columns)->where($attribute, '=', $value);
+        return $this->cacheQueryBuilder($attribute.$value, $query, 'first');
     }
 
     public function makeModel()
