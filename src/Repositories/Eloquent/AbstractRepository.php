@@ -39,7 +39,7 @@ abstract class AbstractRepository extends EloquentCache
     public function all($columns = ['*'])
     {
         $query = $this->queryBuilder->select($columns);
-        
+
         return $this->cacheQueryBuilder('all', $query);
     }
 
