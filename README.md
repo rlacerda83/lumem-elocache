@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/packagist/l/rlacerda83/lumen-elocache.svg?style=flat-square)](https://packagist.org/packages/rlacerda83/lumen-elocache)
 ![Development Version](https://img.shields.io/packagist/vpre/rlacerda83/lumen-elocache.svg?style=flat-square)
 ![Monthly Installs](https://img.shields.io/packagist/dm/rlacerda83/lumen-elocache.svg?style=flat-square)
-[![StyleCI](https://styleci.io/repos/40798726/shield)](https://styleci.io/repos/40798726)
+[![StyleCI](https://styleci.io/repos/41611087/shield)](https://styleci.io/repos/41611087)
 
 # Simple layer for Eloquent Querys 
 
