@@ -83,7 +83,6 @@ abstract class AbstractRepository extends EloquentCache
     public function find($id, $columns = ['*'])
     {
         $query = $this->queryBuilder->select($columns)->where('id', $id);
-
         return $this->cacheQueryBuilder($id, $query, 'first');
     }
 
@@ -94,7 +93,7 @@ abstract class AbstractRepository extends EloquentCache
      *
      * @return mixed
      */
-    public function findBy($attribute, $value, $columns = array('*'))
+    public function findBy($attribute, $value, $columns = ['*'])
     {
         $query = $this->queryBuilder->select($columns)->where($attribute, '=', $value);
         return $this->cacheQueryBuilder($attribute.$value, $query, 'first');
