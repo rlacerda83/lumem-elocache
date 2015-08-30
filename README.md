@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/rlacerda83/lumem-elocache.svg?style=flat-square)](https://travis-ci.org/rlacerda83/lumem-elocache.svg)
-[![License](https://img.shields.io/packagist/l/rlacerda83/lumen-elocache.svg?style=flat-square)](https://packagist.org/packages/rlacerda83/lumen-elocache)
-![Development Version](https://img.shields.io/packagist/vpre/rlacerda83/lumen-elocache.svg?style=flat-square)
-![Monthly Installs](https://img.shields.io/packagist/dm/rlacerda83/lumen-elocache.svg?style=flat-square)
+[![License](https://img.shields.io/packagist/l/rlacerda83/lumem-elocache.svg?style=flat-square)](https://packagist.org/packages/rlacerda83/lumem-elocache)
+![Development Version](https://img.shields.io/packagist/vpre/rlacerda83/lumem-elocache.svg?style=flat-square)
+![Monthly Installs](https://img.shields.io/packagist/dm/rlacerda83/lumem-elocache.svg?style=flat-square)
 [![StyleCI](https://styleci.io/repos/41611087/shield)](https://styleci.io/repos/41611087)
 
 # Simple layer for Eloquent Querys 
