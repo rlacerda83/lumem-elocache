@@ -50,19 +50,21 @@ abstract class AbstractRepository extends EloquentCache
      */
     public function create(array $data)
     {
-        return $this->queryBuilder->create($data);
+        return $this->getModel()->create($data);
     }
 
     /**
      * @param array $data
-     * @param $id
-     * @param string $attribute
+     * @param $model
      *
      * @return mixed
      */
-    public function update(array $data, $id, $attribute = 'id')
+    public function update(array $data, $model)
     {
-        return $this->queryBuilder->where($attribute, '=', $id)->update($data);
+        $model->fill($data);
+        $model->save();
+        
+        return $model;
     }
 
     /**
@@ -72,7 +74,7 @@ abstract class AbstractRepository extends EloquentCache
      */
     public function delete($id)
     {
-        return $this->queryBuilder->destroy($id);
+        return $this->getModel()->destroy($id);
     }
 
     /**
