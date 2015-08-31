@@ -56,14 +56,14 @@ abstract class AbstractRepository extends EloquentCache
     /**
      * @param array $data
      * @param $model
-     *
+     * 
      * @return mixed
      */
     public function update(array $data, $model)
     {
         $model->fill($data);
         $model->save();
-        
+
         return $model;
     }
 
