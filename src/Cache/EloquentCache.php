@@ -56,7 +56,7 @@ class EloquentCache
         $referenceClass = $this;
         if ($this->enableCaching) {
             if ($this->cacheForMinutes > 0) {
-                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($query, $verb, $key, $referenceClass,$itemsPage) {
+                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($query, $verb, $key, $referenceClass, $itemsPage) {
                     $referenceClass->log($key);
                     if ($verb == 'paginate') {
                         $paginator = $query->paginate($itemsPage);
@@ -69,7 +69,7 @@ class EloquentCache
                 });
             }
 
-            return Cache::tags($tag)->rememberForever($key, function () use ($query, $verb, $key, $referenceClass,$itemsPage) {
+            return Cache::tags($tag)->rememberForever($key, function () use ($query, $verb, $key, $referenceClass, $itemsPage) {
                 $referenceClass->log($key);
                 if ($verb == 'paginate') {
                     $paginator = $query->paginate($itemsPage);
@@ -91,22 +91,25 @@ class EloquentCache
      *
      * @return mixed
      */
-    public function cacheGenericData($key, $data)
+    public function cacheGenericData($key, $data, $tag)
     {
-        $tag = $this->getModel()->getTable();
+        if (!$tag) {
+            $tag = $this->getModel()->getTable();
+        }
+
         $key = md5($key);
 
         $referenceClass = $this;
         if ($this->enableCaching) {
             if ($this->cacheForMinutes > 0) {
-                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($data, $key,$referenceClass) {
+                return Cache::tags($tag)->remember($key, $this->cacheForMinutes, function () use ($data, $key, $referenceClass) {
                     $referenceClass->log($key);
 
                     return $data;
                 });
             }
 
-            return Cache::tags($tag)->rememberForever($key, function () use ($data, $key,$referenceClass) {
+            return Cache::tags($tag)->rememberForever($key, function () use ($data, $key, $referenceClass) {
                 $referenceClass->log($key);
 
                 return $data;
