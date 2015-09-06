@@ -5,6 +5,7 @@ namespace Elocache\Repositories\Eloquent;
 use Elocache\Cache\EloquentCache;
 use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 abstract class AbstractRepository extends EloquentCache
 {
@@ -12,11 +13,6 @@ abstract class AbstractRepository extends EloquentCache
      * @var App
      */
     private $app;
-
-    /**
-     * @var
-     */
-    protected $queryBuilder;
 
     public function __construct(App $app)
     {
@@ -38,7 +34,7 @@ abstract class AbstractRepository extends EloquentCache
      */
     public function all($columns = ['*'])
     {
-        $query = $this->queryBuilder->select($columns);
+        $query = DB::table($this->getModel()->getTableName())->select($columns);
 
         return $this->cacheQueryBuilder('all', $query);
     }
@@ -56,7 +52,7 @@ abstract class AbstractRepository extends EloquentCache
     /**
      * @param array $data
      * @param $model
-     * 
+     *
      * @return mixed
      */
     public function update(array $data, $model)
@@ -85,7 +81,7 @@ abstract class AbstractRepository extends EloquentCache
      */
     public function find($id, $columns = ['*'])
     {
-        $query = $this->queryBuilder->select($columns)->where('id', $id);
+        $query = DB::table($this->getModel()->getTableName())->select($columns)->where('id', $id);
 
         return $this->cacheQueryBuilder($id, $query, 'first');
     }
@@ -99,7 +95,7 @@ abstract class AbstractRepository extends EloquentCache
      */
     public function findBy($attribute, $value, $columns = ['*'])
     {
-        $query = $this->queryBuilder->select($columns)->where($attribute, '=', $value);
+        $query = DB::table($this->getModel()->getTableName())->select($columns)->where($attribute, '=', $value);
 
         return $this->cacheQueryBuilder($attribute.$value, $query, 'first');
     }
@@ -112,7 +108,6 @@ abstract class AbstractRepository extends EloquentCache
             throw new \Exception("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
 
-        $this->queryBuilder = $model->newQuery();
         $this->model = $model;
         $this->setModel($this->model);
     }
