@@ -5,7 +5,6 @@ namespace Elocache\Repositories\Eloquent;
 use Elocache\Cache\EloquentCache;
 use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 abstract class AbstractRepository extends EloquentCache
 {
