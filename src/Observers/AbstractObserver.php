@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Elocache\Observers;
 
 use Elocache\Cache\EloquentCache;
